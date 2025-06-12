@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 
-const LOGIN_URL = process.env.REACT_APP_LOGIN_URL || 'http://localhost:3001';
+const LOGIN_URL = process.env.REACT_APP_LOGIN_URL || 'https://auth.adamgiesey.com';
 
 function Authenticated() {
   return (

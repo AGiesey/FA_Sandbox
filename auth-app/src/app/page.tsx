@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
 
-const REDIRECT_URL = process.env.NEXT_PUBLIC_REDIRECT_URL || 'http://localhost:3000';
+const REDIRECT_URL = process.env.NEXT_PUBLIC_REDIRECT_URL || 'https://client.adamgiesey.com';
 
 export default function Home() {
   const [email, setEmail] = useState("");
