@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const LOGIN_URL = process.env.REACT_APP_LOGIN_URL || 'https://auth.adamgiesey.com';
 
@@ -23,10 +23,28 @@ function Unauthenticated() {
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const authenticate = () => {
-    setIsAuthenticated(true);
+  const authenticate = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('https://api.adamgiesey.com/api/check-cookie', {
+        credentials: 'include',
+        headers: {
+          'Origin': window.location.origin
+        }
+      });
+      setIsAuthenticated(response.status === 200);
+    } catch (error) {
+      setIsAuthenticated(false);
+    } finally {
+      setIsLoading(false);
+    }
   }
+
+  useEffect(() => {
+    authenticate();
+  }, [])
 
   const handleClick = (e) => {
     window.location.href = LOGIN_URL;
@@ -49,10 +67,19 @@ function App() {
         </a>
       </header>
       <main>
-        <button onClick={handleClick}>
-          {isAuthenticated ? 'Log Out' : 'Log In'}
-        </button>
-        {isAuthenticated ? <Authenticated /> : <Unauthenticated />}
+        {
+          isLoading
+            ? <h1>loading...</h1>
+            : (
+                <>
+                  <button onClick={handleClick}>
+                    {isAuthenticated ? 'Log Out' : 'Log In'}
+                  </button>
+                  {isAuthenticated ? <Authenticated /> : <Unauthenticated />}
+                </>
+              )
+            
+        }
       </main>
     </div>
   );
