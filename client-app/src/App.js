@@ -47,7 +47,9 @@ function App() {
   }, [])
 
   const handleClick = (e) => {
-    window.location.href = LOGIN_URL;
+    isAuthenticated
+      ? window.location.href = `${LOGIN_URL}/logout`
+      : window.location.href = LOGIN_URL
   }
 
   return (
