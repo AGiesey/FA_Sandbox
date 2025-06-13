@@ -15,7 +15,7 @@ export default function handler(req, res) {
 
   const { auth_token } = req.cookies || {};
 
-  if (auth_token === 'authenticated') {
+  if (auth_token && auth_token.length) {
     return res.status(200).json({
       id: 'user-123',
       name: 'Alice Testington',

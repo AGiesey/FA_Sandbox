@@ -44,7 +44,7 @@ export function Main() {
     setIsLoading(true);
     try {
       const response = await axios.get('https://api.adamgiesey.com/api/check-cookie', {
-        withCredentials: true,
+        withCredentials: false,
         headers: {
           'Origin': window.location.origin,
           'Cache-Control': 'no-cache',
